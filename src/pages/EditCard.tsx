@@ -1,18 +1,18 @@
 import React from 'react'
 import {observer} from "mobx-react-lite";
 import {Context, items} from "../index";
-import ImageLoader from "./ImageLoader";
-import Years from './Years';
-import YearCreator from './YearCreator';
+import ImageLoader from "../components/ImageLoader";
+import Years from '../components/Years';
+import YearCreator from '../components/YearCreator';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Items from './Items';
-import ItemCreator from './ItemCreator';
+import Items from '../components/Items';
+import ItemCreator from '../components/ItemCreator';
 import {  useParams } from "react-router-dom";
 import no_image from "../images/NO_IMAGE.jpg";
 import { useNavigate } from "react-router-dom";
-import ItemsSelect from './ItemsSelect';
-import YearsSelect from './YearsSelect';
+import ItemsSelect from '../components/ItemsSelect';
+import YearsSelect from '../components/YearsSelect';
 import axios from 'axios';
 import ICard from '../models/ICard';
 interface Event<T = EventTarget> {

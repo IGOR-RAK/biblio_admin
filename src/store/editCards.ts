@@ -169,7 +169,9 @@ async onEditCard(token:string,isAdmin:boolean,callback:boolean) {
 }
 
 
-  
+  get activeYears(){
+      return this.years.years.filter(year=>year.isActive)
+  }
 
 
 

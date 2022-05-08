@@ -41,3 +41,15 @@ header, main, footer {
       margin: 0 auto;
       padding: 0 15px;
   }
+
+  .cursor {
+      cursor: pointer;
+  }
+
+  .alarm{
+      border: 2px solid red;
+  }
+
+  button{
+      box-sizing: border-box;
+  }

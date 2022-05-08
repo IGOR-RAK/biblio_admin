@@ -42,7 +42,7 @@ export default class Store {
 
    async refreshToken (){
        try {
-        const res = await axios.get(`https://salty-springs-71498.herokuapp.com/user/refresh_token`,
+        const res = await axios.get(`${API.PROD}/user/refresh_token`,
         {
             withCredentials:true
         }

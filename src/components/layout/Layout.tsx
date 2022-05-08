@@ -13,7 +13,7 @@ import Years from '../Years';
 import Items from '../Items';
 
 const Layout: FC = () => {
-    const {store} = useContext(Context);
+    const {store,ui} = useContext(Context);
     const isLoading = store.isLoading;
 
     const[isItemModal,setIsItemModal] = React.useState(false);
@@ -63,11 +63,11 @@ const Layout: FC = () => {
                                 </div>
                                  <div className='navigation__box'>
                                   <div>                   
-                                        <button className='btn btn-primary' onClick={handleSetIsItemsModal}>Show Items</button>
+                                        <button className={`btn btn-primary ${ui.alarmItems&&'alarm'}`} onClick={handleSetIsItemsModal}>Show Items</button>
                                         {isItemsModal&&<Items handleModal={handleSetIsItemsModal}/>}
                                     </div>              
                                     <div>
-                                        <button className='btn btn-primary' onClick={handleSetIsYearsModal}>Show Years</button>
+                                        <button className={`btn btn-primary ${ui.alarmYears&&'alarm'}`} onClick={handleSetIsYearsModal}>Show Years</button>
                                         {isYearsModal&&<Years handleModal={handleSetIsYearsModal}/>}                    
                                     </div>
                                  </div>

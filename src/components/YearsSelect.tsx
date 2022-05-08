@@ -25,7 +25,7 @@ const YearSelect: React.FC = () => {
     <div className="my_years">
       <div className="my_years_body">
         {edit.years.years &&
-          edit.years.years.map((year) => (
+          edit.activeYears.map((year) => (
             <div className="my_years_item" key={year._id}>
                <label className="form-check-label">
                       <input

@@ -1,4 +1,4 @@
-import { API } from '../api/api';
+import { API,ROUTES,KEYS } from '../api/api';
 import ICard from "../models/ICard";
 import IServerCard from "../models/IServerCard";
 import {makeAutoObservable} from "mobx";
@@ -79,7 +79,7 @@ export default class cardsStore{
     async fetchCards() {
         try {
             this.setLoading(true)
-            const res = await axios.get(`${API.PROD}/api/card`, {
+            const res = await axios.get(`${API.PROD}${ROUTES.API}${KEYS.CARD}`, {
               
             });                                    
             this.setCards(res.data);   
@@ -177,7 +177,7 @@ export default class cardsStore{
                 true
                 ){
                 this.setLoading(true)
-                const res=await axios.post(`${API.PROD}/api/card}`, {
+                const res=await axios.post(`${API.PROD}/api/card`, {
                     author:this.initState.author,
                     public_id:this.initState.public_id,
                     url:this.initState.url,

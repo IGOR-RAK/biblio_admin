@@ -1,5 +1,5 @@
 import React, {FC, useContext, useEffect} from 'react';
-import LoginForm from "./components/LoginForm";
+import LoginForm from "./pages/LoginForm";
 import {Context} from "./index";
 import {observer} from "mobx-react-lite";
 import {
@@ -8,8 +8,8 @@ import {
   } from "react-router-dom";
 import Layout from './components/layout/Layout';
 import Cards from './components/Cards';
-import CardCreator from './components/CardCreator'
-import EditCard from './components/EditCard';
+import CardCreator from './pages/CardCreator'
+import EditCard from './pages/EditCard';
 import Years from './pages/Years'
 
 
