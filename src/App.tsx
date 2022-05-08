@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {FC, useContext, useEffect} from 'react';
+import LoginForm from "./components/LoginForm";
+import {Context} from "./index";
+import {observer} from "mobx-react-lite";
+import {
+    Routes,
+    Route
+  } from "react-router-dom";
+import Layout from './components/layout/Layout';
+import Cards from './components/Cards';
+import CardCreator from './components/CardCreator'
+import EditCard from './components/EditCard';
+import Years from './pages/Years'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+
+const App: FC = () => {
+    const {store} = useContext(Context);
+    const token = store.token   
+
+    useEffect(() =>{
+      const firstLogin = localStorage.getItem('first_login');        
+      if(firstLogin){         
+          store.refreshToken()
+      }
+        },[]) 
+ 
+  useEffect(() =>{
+    if(token){
+        store.getUser(token)
+    }
+    },[token])
+
+  console.log("token",token)
+    
+    return (
+        <>
+        <Routes>
+           <Route path="/" element={<Layout/>}> 
+                <Route index element={store.isAuth?<Years/>:<LoginForm/>}/>        
+                <Route path='/cards/:year' element={store.isAuth?<Cards/>:<LoginForm/>}/>
+                <Route path='/new' element={store.isAuth?<CardCreator/>:<LoginForm/>}/>
+                <Route path='/edit/:id' element={store.isAuth?<EditCard/>:<LoginForm/>}/>
+            </Route>
+        </Routes>
+        </>
+    );
+};
+
+export default observer(App);

@@ -1,0 +1,5 @@
+.navigation{
+    .navigation__box > * + * {
+        margin: 10px 0;
+    }
+}
