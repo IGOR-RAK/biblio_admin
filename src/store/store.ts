@@ -42,7 +42,7 @@ export default class Store {
 
    async refreshToken (){
        try {
-        const res = await axios.get(`${API.PROD}/user/refresh_token`,
+        const res = await axios.get(`https://salty-springs-71498.herokuapp.com/user/refresh_token`,
         {
             withCredentials:true
         }
@@ -72,7 +72,7 @@ export default class Store {
         try {         
           
            
-           await axios.post(`${API.PROD}/user/login`, {...user})
+           await axios.post(`https://salty-springs-71498.herokuapp.com/user/login`, {...user})
              // const res1= await axios.post(`${API.PROD}/user/login`, {...user})
             // this.setToken(res1.data.accesstoken) 
             // const res = await axios.get(`${API.PROD}/user/infor`, {
@@ -95,7 +95,7 @@ export default class Store {
     }
 
     async logout (){
-        await axios.get(`${API.PROD}/user/logout`)          
+        await axios.get(`https://salty-springs-71498.herokuapp.com/user/logout`)          
         localStorage.removeItem('first_login')
         window.location.href = "/";  
     }
@@ -103,7 +103,7 @@ export default class Store {
     async getUser(token:string) {
         try {
             this.setLoading(true)
-            const res = await axios.get(`${API.PROD}/user/infor`, {
+            const res = await axios.get(`https://salty-springs-71498.herokuapp.com/user/infor`, {
                 headers: {Authorization: token}
             })                           
             this.setAuth(true)                

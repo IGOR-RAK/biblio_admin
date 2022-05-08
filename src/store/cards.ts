@@ -79,7 +79,7 @@ export default class cardsStore{
     async fetchCards() {
         try {
             this.setLoading(true)
-            const res = await axios.get(`${API.PROD}${ROUTES.API}${KEYS.CARD}`, {
+            const res = await axios.get(`https://salty-springs-71498.herokuapp.com/api/card`, {
               
             });                                    
             this.setCards(res.data);   
@@ -95,7 +95,7 @@ export default class cardsStore{
     async fetchCardsByYear(yearId:string) {
         try {
             this.setLoading(true)
-            const res = await axios.get(`${API.PROD}/api/card/${yearId}`, {
+            const res = await axios.get(`https://salty-springs-71498.herokuapp.com/api/card/${yearId}`, {
               
             });                                    
             this.setCards(res.data);   
