@@ -1,13 +1,11 @@
 import React from 'react'
 import {observer} from "mobx-react-lite";
 import styles from "./Modal.module.scss"
+
 type IModal = {
     handleModal() : void,
   };
-
-
-
-
+  
 const Modal: React.FC<IModal> = ({children,handleModal}) =>{
     
     return (

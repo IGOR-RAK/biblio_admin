@@ -4,7 +4,7 @@ import { Context } from "../index";
 import IYears from "../models/IYears";
 
 const YearSelect: React.FC = () => {
-  const { store, edit, cards } = React.useContext(Context);
+  const { store, edit } = React.useContext(Context);
 
   React.useEffect(() => {
     edit.years.fetchYears(store.token, store.isAdmin);
@@ -20,23 +20,23 @@ const YearSelect: React.FC = () => {
       </div>
     );
   }
- 
+
   return (
     <div className="my_years">
       <div className="my_years_body">
         {edit.years.years &&
           edit.activeYears.map((year) => (
             <div className="my_years_item" key={year._id}>
-               <label className="form-check-label">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="remember"
-                        value={year.title}
-                        onChange={()=>handleInput(year)}
-                      />{" "}
-                      {year.title}
-                    </label>             
+              <label className="form-check-label">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="remember"
+                  value={year.title}
+                  onChange={() => handleInput(year)}
+                />{" "}
+                {year.title}
+              </label>
             </div>
           ))}
       </div>

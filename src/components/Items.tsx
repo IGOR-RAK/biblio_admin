@@ -16,7 +16,7 @@ const Items: React.FC<IYears> = ({ handleModal }) => {
 
   React.useEffect(() => {
     items.fetchItems(store.token, store.isAdmin);
-   cards.fetchCards();
+    cards.fetchCards();
   }, [items.callback]);
 
   const handleInput = (e: Event<HTMLInputElement>) => {
@@ -40,11 +40,16 @@ const Items: React.FC<IYears> = ({ handleModal }) => {
           <form className="years">
             <div>
               {items.mapedItems?.map((item) => {
-                const find = cards.cards.find(card=>card.item===item.title)
-                const active = Boolean(find)
+                const find = cards.cards.find(
+                  (card) => card.item === item.title
+                );
+                const active = Boolean(find);
                 if (item.isEdit === true) {
                   return (
-                    <div key={item._id} className="d-flex justify-content-between mb-2 box">
+                    <div
+                      key={item._id}
+                      className="d-flex justify-content-between mb-2 box"
+                    >
                       <div className="input_box">
                         <input
                           className="form-control input"
@@ -56,7 +61,7 @@ const Items: React.FC<IYears> = ({ handleModal }) => {
                           }}
                         />
                       </div>
-                      <div>                     
+                      <div>
                         <button
                           className="btn btn-success"
                           onClick={(e) => {
@@ -121,7 +126,7 @@ const Items: React.FC<IYears> = ({ handleModal }) => {
                             store.isAdmin,
                             item._id
                           );
-                          cards.setYear("","");
+                          cards.setYear("", "");
                         }}
                       >
                         Delete

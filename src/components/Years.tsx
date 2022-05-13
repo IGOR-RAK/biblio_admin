@@ -16,11 +16,10 @@ const Years: React.FC<IYears> = ({ handleModal }) => {
 
   React.useEffect(() => {
     years.fetchYears(store.token, store.isAdmin);
-  
   }, [years.callback]);
 
-  const handleInput = (title:string, id:string) => {
-    cards.setYear(title,id);
+  const handleInput = (title: string, id: string) => {
+    cards.setYear(title, id);
   };
 
   if (years.isEditYear) {
@@ -59,24 +58,29 @@ const Years: React.FC<IYears> = ({ handleModal }) => {
                         />
                       </div>
                       <div>
-                      <button
-                         className="btn btn-success"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          years.editYear(store.token, store.isAdmin, year._id,year.isActive);
-                        }}
-                      >
-                        Save
-                      </button>
-                      <button
-                       className="btn btn-outline-danger"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          years.setYearId("");
-                        }}
-                      >
-                        Close
-                      </button>
+                        <button
+                          className="btn btn-success"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            years.editYear(
+                              store.token,
+                              store.isAdmin,
+                              year._id,
+                              year.isActive
+                            );
+                          }}
+                        >
+                          Save
+                        </button>
+                        <button
+                          className="btn btn-outline-danger"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            years.setYearId("");
+                          }}
+                        >
+                          Close
+                        </button>
                       </div>
                     </div>
                   );
@@ -87,27 +91,18 @@ const Years: React.FC<IYears> = ({ handleModal }) => {
                     className="d-flex justify-content-between mb-2"
                   >
                     <div className="form-check mb-3">
-                    <label className="form-check-label">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="remember"
-                        value={year.title}
-                        onChange={()=>handleInput(year.title,year._id)}
-                      />{" "}
-                      {year.title}+{year.isActive.toString()}
-                    </label>
+                      <label className="form-check-label">
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          name="remember"
+                          value={year.title}
+                          onChange={() => handleInput(year.title, year._id)}
+                        />{" "}
+                        {year.title}+{year.isActive.toString()}
+                      </label>
                     </div>
                     <div className="btn-group">
-                      {/* <button
-                        className="btn btn-secondary"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          years.setYearId(year._id);
-                        }}
-                      >
-                        Edit
-                      </button> */}
                       <button
                         className="btn btn-danger"
                         disabled={year.isActive}
@@ -117,13 +112,12 @@ const Years: React.FC<IYears> = ({ handleModal }) => {
                             store.token,
                             store.isAdmin,
                             year._id
-                          );                        
-                          cards.setYear("","");
+                          );
+                          cards.setYear("", "");
                         }}
                       >
                         Delete
                       </button>
-                      
                     </div>
                   </div>
                 );

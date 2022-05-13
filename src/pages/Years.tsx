@@ -44,10 +44,11 @@ const Years: React.FC = () => {
           );
         })}
       </div>
-      <div>
+      <div className="m-2 mt-5">
+      <div>Non-active years:</div>
       {nonActiveYears.map((year) => {
           return (
-            <div  key={year._id}>
+            <div className="mt-2"  key={year._id}>
               {year.title}
             </div>
           );

@@ -8,7 +8,7 @@ function Footer() {
   return (
     <div className="footer">
       <div className="container">
-        <div className="footer__container">
+        <div className="d-flex justify-content-between">
           <div>
             {!store.isAuth ? null : store.isAdmin ? (
               <div>Admin</div>
@@ -16,7 +16,18 @@ function Footer() {
               <div>User</div>
             )}
           </div>
-          <div>Created by Igor Rak</div>
+          <div className="d-flex justify-content-between">
+            <div>Created by Igor Rak</div>
+            <div className="ms-5">
+              <a
+                href="https://github.com/IGOR-RAK/biblio_admin"
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
