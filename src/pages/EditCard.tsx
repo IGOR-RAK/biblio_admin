@@ -35,7 +35,7 @@ function EditCard() {
         React.useEffect(()=>{
             async function fetch(){
                 edit.setLoading(true)
-                const res = await axios.get('/api/card', {
+                const res = await axios.get('https://salty-springs-71498.herokuapp.com/api/card', {
                 });
                 const fetchedCards:ICard[]= res.data
                 const find = fetchedCards.find(card=>card._id === params.id);

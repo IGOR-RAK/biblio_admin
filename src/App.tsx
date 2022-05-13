@@ -19,7 +19,7 @@ const App: FC = () => {
     const token = store.token   
 
     useEffect(() =>{
-      const firstLogin = localStorage.getItem('first_login');        
+      const firstLogin = localStorage.getItem('refresh_token');        
       if(firstLogin){         
           store.refreshToken()
       }
