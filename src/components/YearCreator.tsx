@@ -19,7 +19,7 @@ const YearCreator: React.FC<IYearCreator> = ({ handleModal }) => {
   const [error, setError] = React.useState<IYearError>({} as IYearError);
 
   const errorHandler = () => {
-    const alreadyCreated = years.years.find(
+    const alreadyCreated = years.Years.years.find(
       (year) => year.title === years.newYear
     );
     const find = years.allowedYears.find((year) => year === years.newYear);

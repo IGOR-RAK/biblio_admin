@@ -1,6 +1,6 @@
-import IItems from "./IItems";
+import {IItem} from "./IItems";
 
 
-export default interface IYear extends IItems {
+export  interface IYear extends IItem {
     isActive:boolean  
 }

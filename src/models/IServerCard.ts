@@ -1,4 +1,4 @@
-export default interface IServerCard{
+export interface IServerCard{
     _id: string;
     author:string;
     public_id:string;

@@ -1,4 +1,4 @@
-export default interface IItems {
+export  interface IItem {
     _id:string;
     title:string;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
-import IItems from "../models/IItems";
+import {IItem} from "../models";
 
 const Items: React.FC = () => {
   const { store, edit, cards } = React.useContext(Context);
@@ -9,7 +9,7 @@ const Items: React.FC = () => {
   React.useEffect(() => {
     edit.items.fetchItems(store.token, store.isAdmin);
   }, [edit.callback]);
-  const handleInput = (item: IItems) => {
+  const handleInput = (item: IItem) => {
     edit.setItem(item.title);
   };
 

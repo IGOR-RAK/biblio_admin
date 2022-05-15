@@ -1,7 +1,7 @@
-import IImage from "./IImage"
+import {IImage} from "./IImage"
 
 
-export default interface ICard{
+export  interface ICard{
     _id?: string;
     author:string;
     public_id:string;

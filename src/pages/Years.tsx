@@ -7,7 +7,7 @@ const Years: React.FC = () => {
   const { years, store} = React.useContext(Context);
 
   React.useEffect(() => {
-    years.fetchYears(store.token, store.isAdmin);
+    years.Years.fetchYears(store.token, store.isAdmin);
   }, [years.callback]);
 
 
@@ -22,8 +22,8 @@ const Years: React.FC = () => {
     );
   }
   
-  const activeYears = years.years.filter(year=>year.isActive)
-  const nonActiveYears = years.years.filter(year=>!year.isActive)
+  const activeYears = years.Years.years.filter(year=>year.isActive)
+  const nonActiveYears = years.Years.years.filter(year=>!year.isActive)
 
 
   return (

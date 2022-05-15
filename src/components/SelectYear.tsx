@@ -12,10 +12,10 @@ type IYears = {
 };
 
 const SelectYear: React.FC<IYears> = ({ handleModal }) => {
-  const { years, store, cards } = React.useContext(Context);
+  const { years, store} = React.useContext(Context);
 
   React.useEffect(() => {
-    years.fetchYears(store.token, store.isAdmin);
+    years.Years.fetchYears(store.token, store.isAdmin);
   }, [years.callback]);
 
   if (years.isEditYear) {

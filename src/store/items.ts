@@ -1,198 +1,137 @@
-import IItems from "../models/IItems";
-import {makeAutoObservable} from "mobx";
-import axios from 'axios';
-import { API } from './../api/api';
 
+import { IItem } from "../models";
+import { makeAutoObservable } from "mobx";
+import api from "./../api/api";
+import FetchItems from "./helpers/fetchItems";
 
-
-
-interface IIsEdit {
-    _id:string;
-    title:string;
-    isEdit:boolean
+interface IIsEdit extends IItem {  
+  isEdit: boolean;
 }
 
-export default class itemsStore{
-     
+export default class itemsStore {
+  Items = new FetchItems();
+  isLoading = false;
+  callback = false;
+  isEdit = false;
+  itemId: string = "";
+  editInput: string = "";
+  isNewLoading = false;
+  newItem: string = "";
+  isEditItem = false;
+  newItemError = "";
+  message = "";
 
-      items:IItems[] = [] ; 
-      item:string = '';
-      isLoading = false; 
-      callback=false;
-      isEdit=false;
-     
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-      itemId:string = ''; 
-      editInput:string = ''; 
-      
-      isNewLoading = false; 
-      newItem:string = '';     
+  setNewItem(item: string) {
+    this.newItem = item;
+  }
 
-      isEditItem = false; 
-      newItemError= ""
-     
-       message='';
+  setCallback() {
+    this.callback = !this.callback;
+  }
 
+  setLoading(bool: boolean) {
+    this.isLoading = bool;
+  }
 
-    constructor() {
-        makeAutoObservable(this);
+  setIsNewItemLoading(bool: boolean) {
+    this.isNewLoading = bool;
+  }
+
+  setNewItemLoading(bool: boolean) {
+    this.isLoading = bool;
+  }
+
+  setItemId(id: string) {
+    this.itemId = id;
+  }
+
+  setEditInput(value: string) {
+    this.editInput = value;
+  }
+
+  setMessage(value: string) {
+    this.message = value;
+  }
+
+  setNewError(value: string) {
+    this.newItemError = value;
+  }
+
+  async createItem(token: string, isAdmin: boolean) {
+    try {
+      await this.Items.fetchItems(token, isAdmin);
+      if (!isAdmin) return alert("You're not an admin");
+      const find = this.Items.items.find((item) => item.title === this.newItem);
+      console.log("find", find);
+      if (find) {
+        this.setNewError("Ten deskryptor już istnieje.");
+      }
+
+      if (this.newItem && !find) {
+        this.setIsNewItemLoading(true);
+        const res = await api.createItem(token, this.newItem);
+        this.setNewItem("");
+        this.callback = !this.callback;
+        this.setIsNewItemLoading(false);
+      }
+    } catch (error) {
+      let message;
+      if (error instanceof Error) message = error.message;
+      else message = String(error);
+      alert(message);
     }
+  }
 
-    setItems(items:IItems[]){
-        this.items = items;
+  async deleteItem(token: string, isAdmin: boolean, id: string) {
+    try {
+      if (!isAdmin) return alert("You're not an admin");
+      this.setNewItemLoading(true);
+      const res = await api.deleteItem(token, id);
+      this.setMessage(res.data.msg);
+      this.newItem = "";
+      this.callback = !this.callback;
+      this.setNewItemLoading(false);
+    } catch (error) {
+      let message;
+      if (error instanceof Error) message = error.message;
+      else message = String(error);
+      alert(message);
     }
+  }
 
-    setItem(item:string){
-        this.item = item;
+  async editItem(token: string, isAdmin: boolean, id: string) {
+    try {
+      if (!isAdmin) return alert("You're not an admin");
+      this.isEditItem = true;
+      const res = await api.editItem(token, id, this.editInput);
+      this.setMessage(res.data.msg);
+      this.setItemId("");
+      this.callback = !this.callback;
+      this.isEditItem = false;
+    } catch (error) {
+      let message;
+      if (error instanceof Error) message = error.message;
+      else message = String(error);
+      alert(message);
+    } finally {
+      document.location.reload();
     }
+  }
 
-    setNewItem(item:string){
-        this.newItem = item;
-    }
-
-
-    setCallback(){
-        this.callback = !this.callback
-    }    
-
-    setLoading(bool: boolean) {
-        this.isLoading = bool;
-    }
-
-    setIsNewItemLoading(bool: boolean) {
-        this.isNewLoading = bool;
-    }
-
-    // setNewYear(year:string){
-    //     this.newYear = year;
-    // }   
-
-    setNewItemLoading(bool: boolean) {
-        this.isLoading = bool;
-    }
-
-    setItemId(id:string){
-        this.itemId = id
-    }
-
-    setEditInput(value:string){
-        this. editInput = value
-    }
-
-    setMessage(value:string){
-        this.message = value
-    }
-
-    setNewError(value:string){
-        this.newItemError = value
-    }
-
-    async fetchItems(token:string,isAdmin:boolean) {
-        try {
-            if(!isAdmin) return alert("You're not an admin")
-            this.setLoading(true)
-            const res = await axios.get(`${API.PROD}/api/item`,{
-                headers: {Authorization: token}
-            });                                    
-            this.setItems(res.data);   
-            this.setLoading(false)
-        } catch (error) {
-          let message
-          if (error instanceof Error) message = error.message
-          else message = String(error)        
-          alert(message)
+  get mapedItems() {
+    if (this.Items.items.length > 0) {
+      const arr: IIsEdit[] = [...this.Items.items].map((el) => {
+        if (el._id === this.itemId) {
+          this.editInput = el.title;
+          return { ...el, isEdit: true };
         }
+        return { ...el, isEdit: false };
+      });
+      return arr;
     }
-
-    async createItem(token:string,isAdmin:boolean) {
-        try {
-            await this.fetchItems(token,isAdmin)
-            if(!isAdmin) return alert("You're not an admin")          
-            const find = this.items.find(item=>item.title === this.newItem)
-            console.log("find",find)
-            if(find) {
-                this.setNewError("Ten deskryptor już istnieje.")
-            }
-            
-            if(this.newItem&&!find){
-                this.setIsNewItemLoading(true)
-                const res=await axios.post(`${API.PROD}/api/item`, {title:this.newItem}, {
-                    headers: {Authorization: token}
-                })             
-                this.setNewItem("");
-                this.callback = !this.callback;
-                this.setIsNewItemLoading(false);               
-            }
-                   
-        } catch (error) {
-          let message
-          if (error instanceof Error) message = error.message;  
-          else message = String(error)        
-          alert(message)
-         
-        } finally {
-            // document.location.reload()
-        }
-    }
-
-    async deleteItem(token:string,isAdmin:boolean,id:string) {
-        try {
-            if(!isAdmin) return alert("You're not an admin");          
-                this.setNewItemLoading(true)
-                const res=await axios.delete(`${API.PROD}/api/item/${id}`,  {
-                    headers: {Authorization: token}
-                })
-                this.setMessage(res.data.msg); 
-                this.newItem="";
-                this.callback = !this.callback
-                this.setNewItemLoading(false);                
-        } catch (error) {
-          let message
-          if (error instanceof Error) message = error.message
-          else message = String(error)        
-          alert(message)
-        }
-    }
-
-    async editItem(token:string,isAdmin:boolean,id:string,fn: () => void) {
-        try {
-            if(!isAdmin) return alert("You're not an admin");          
-                this.isEditItem = true
-                const res=await axios.put(`${API.PROD}/api/item/${id}`, {title:this.editInput}, {
-                    headers: {Authorization: token}
-                }); 
-                this.setMessage(res.data.msg); 
-                this.setItemId("")
-                this.callback = !this.callback;
-                this.isEditItem = false;
-                       
-        } catch (error) {
-          let message
-          if (error instanceof Error) message = error.message
-          else message = String(error)        
-          alert(message)
-        } finally{
-            document.location.reload()
-        }
-    }
-
-    
-     get mapedItems(){
-         if (this.items.length >0) {
-            const arr: IIsEdit[]= [...this.items].map(el=> {
-                if(el._id === this.itemId) {
-                    this.editInput = el.title;
-                     return {...el,isEdit:true}}
-                return {...el,isEdit:false}});
-                return arr
-         }         
-     }
-
- 
-     
-   
-    }
-
-
-
- 
+  }
+}

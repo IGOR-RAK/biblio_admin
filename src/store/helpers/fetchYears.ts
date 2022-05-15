@@ -1,17 +1,10 @@
 
 import {makeAutoObservable} from "mobx";
-import axios from 'axios';
-import IYears from "../../models/IYears";
-import { API } from '../../api/api';
-
-
-
-
-
-
+import {IYear} from "../../models";
+import Api from '../../api/api';
 
 export default class FetchYears{
-      years:IYears[] = [] ;     
+      years:IYear[] = [] ;     
       isLoading = false; 
       callback=false;   
 
@@ -19,7 +12,7 @@ export default class FetchYears{
         makeAutoObservable(this);
     }
 
-    setYears(years:IYears[]){
+    setYears(years:IYear[]){
         this.years = years;
     }
 
@@ -34,20 +27,18 @@ export default class FetchYears{
 
 
     async fetchYears(token:string,isAdmin:boolean) {
+        this.setLoading(true)
         try {
-            if(!isAdmin) return alert("You're not an admin")
-            this.setLoading(true)
-            const res = await axios.get(`${API.PROD}/api/year`,{
-                headers: {Authorization: token}
-            });                                    
-            this.setYears(res.data);   
-            this.setLoading(false)
+            if(!isAdmin) return alert("You're not an admin")           
+            const res = await Api.fetchYears(token)               
+            this.setYears(res.data);               
         } catch (error) {
           let message
           if (error instanceof Error) message = error.message
           else message = String(error)        
           alert(message)
         }
+        this.setLoading(false)
     }
 
          

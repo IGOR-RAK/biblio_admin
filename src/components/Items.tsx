@@ -15,7 +15,7 @@ const Items: React.FC<IYears> = ({ handleModal }) => {
   const { items, store, cards } = React.useContext(Context);
 
   React.useEffect(() => {
-    items.fetchItems(store.token, store.isAdmin);
+    items.Items.fetchItems(store.token, store.isAdmin);
     cards.fetchCards();
   }, [items.callback]);
 
@@ -23,7 +23,7 @@ const Items: React.FC<IYears> = ({ handleModal }) => {
     cards.setItem(e.target.value);
   };
 
-  if (items.isLoading) {
+  if (items.Items.isLoading) {
     return (
       <Modal handleModal={handleModal}>
         <div className="container">
@@ -70,7 +70,7 @@ const Items: React.FC<IYears> = ({ handleModal }) => {
                               store.token,
                               store.isAdmin,
                               item._id,
-                              cards.setCallback
+                              // cards.setCallback
                             );
                           }}
                         >

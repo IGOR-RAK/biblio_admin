@@ -1,11 +1,11 @@
 import React, {createContext} from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import Store from "./store/store";
+import Store from "./store/users";
 import cardsStore from "./store/cards";
 import yearsStore from "./store/years";
 import itemsStore from "./store/items";
-import editCard from "./store/editCards";
+import editCard from "./store/editor";
 import UI from "./store/ui"
 import {
     BrowserRouter as Router 

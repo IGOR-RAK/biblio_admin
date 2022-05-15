@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
-import ICard from "../models/ICard";
+import {ICard,IServerCard} from "../models";
 import { useNavigate } from "react-router-dom";
-import IServerCard from "../models/IServerCard";
+
 
 interface ICardItem {
   card: IServerCard;

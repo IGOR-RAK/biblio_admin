@@ -1,4 +1,4 @@
-export default  interface IImage {
+export  interface IImage {
     public_id:string;
     url:string
   }

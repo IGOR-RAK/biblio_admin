@@ -1,7 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
-import IYears from "../models/IYears";
+import {IYear} from "../models";
 
 const YearSelect: React.FC = () => {
   const { store, edit } = React.useContext(Context);
@@ -9,7 +9,7 @@ const YearSelect: React.FC = () => {
   React.useEffect(() => {
     edit.years.fetchYears(store.token, store.isAdmin);
   }, [edit.callback]);
-  const handleInput = (year: IYears) => {
+  const handleInput = (year: IYear) => {
     edit.setYear(year.title);
   };
 

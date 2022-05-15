@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import ItemsSelect from '../components/ItemsSelect';
 import YearsSelect from '../components/YearsSelect';
 import axios from 'axios';
-import ICard from '../models/ICard';
+import {ICard} from '../models';
 interface Event<T = EventTarget> {
     target: T;   
   }

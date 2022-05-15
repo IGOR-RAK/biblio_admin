@@ -15,7 +15,7 @@ const Years: React.FC<IYears> = ({ handleModal }) => {
   const { years, store, cards } = React.useContext(Context);
 
   React.useEffect(() => {
-    years.fetchYears(store.token, store.isAdmin);
+    years.Years.fetchYears(store.token, store.isAdmin);
   }, [years.callback]);
 
   const handleInput = (title: string, id: string) => {
